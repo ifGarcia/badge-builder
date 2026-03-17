@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Métricas da Pipeline</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>Gráfico de Duração das Execuções</h1>
+  <canvas id="chart" width="600" height="300"></canvas>
+
+  <script>
+    fetch("runs.json")
+      .then(response => response.json())
+      .then(data => {
+        const labels = data.runs.map(r => "Run " + r.id);
+        const durations = data.runs.map(r => r.duration);
+
+        new Chart(document.getElementById("chart"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [{
+              label: "Duração (s)",
+              data: durations,
+              borderColor: "blue",
+              backgroundColor: "rgba(0, 0, 255, 0.2)",
+              tension: 0.3
+            }]
+          }
+        });
+      });
+  </script>
+</body>
+</html>
