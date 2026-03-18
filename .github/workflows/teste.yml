@@ -1,0 +1,36 @@
+name: Teste
+
+on:
+  workflow_dispatch:
+
+jobs:
+  teste-badge:
+    name: 'Teste Create de Badges'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout - ${{ github.ref }}
+        uses: actions/checkout@v4.2.2
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: Create Badge - Com
+        uses: ./
+        with:
+          text-1: env-com-token
+          text-2: ${{ github.run_number }}
+          token: ${{ secrets.SECRET_TOKEN }}
+
+      - name: Create Badge - Com repetido
+        uses: ./
+        with:
+          text-1: env-com-token-rep
+          text-2: 01
+          token: ${{ secrets.SECRET_TOKEN }}
+
+      # - name: Create Badge - Sem
+      #   uses: ./
+      #   with:
+      #     text-1: env-sem-token
+      #     text-2: ${{ github.run_number }}
+      #     token: ${{ secrets.SECRET_TOKEN }}
