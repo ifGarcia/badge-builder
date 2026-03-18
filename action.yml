@@ -1,0 +1,39 @@
+name: 'Generate Badge'
+description: 'Generate a responsive SVG badge and push to repository'
+inputs:
+  repo:
+    description: 'Repositório de SVG'
+    default: 'svg-registry'
+  # Opção de commit por branch. Cria branch baseado em uma regra.
+  # Branch por projeto, tecnologia etc...
+  #branch:
+  text-1:
+    required: false
+  text-2:
+    required: false
+  token:
+    description: 'Token'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: |
+        cd ${{ github.action_path }}/script/
+        npm install simple-git @octokit/rest canvas
+      shell: bash
+
+    - name: Generate svg badge
+      env:
+        repo: ${{ inputs.repo }}
+        text-1: ${{ inputs.text-1 }}
+        text-2: ${{ inputs.text-2 }}
+        token: ${{ inputs.token }}
+      run: node ${{ github.action_path }}/script/generate_badge.js
+      shell: bash
