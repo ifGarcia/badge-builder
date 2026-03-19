@@ -2,7 +2,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const simpleGit = require('simple-git');
 const { createCanvas } = require('canvas');
-import { makeBadge, ValidationError } from 'badge-maker'
+const { makeBadge, ValidationError } = require('badge-maker');
 
 // Função principal
 const main = async () => {
