@@ -24,26 +24,12 @@ const main = async () => {
   const repositoryCurrentName  = process.env.GITHUB_REPOSITORY.split('/')[1];
   const repositoryCurrentOwner = process.env.GITHUB_REPOSITORY.split('/')[0];
 
-  // const format = {
-  //   label: 'build',
-  //   message: 'passed',
-  //   color: 'brightgreen',
-  // }
-  
-  // const svg = makeBadge(format)
-  // console.log(svg) // <svg...
-  
-  // try {
-  //   makeBadge({})
-  // } catch (e) {
-  //   console.log(e) // ValidationError: Field `message` is required
-  // }
 
   async function commitBadge() {
     // gera o badge
     const format = {
-      label: "build",
-      message: "passed",
+      label: text1,
+      message: text2,
       color: "brightgreen",
     };
     const svg = makeBadge(format);
@@ -56,7 +42,7 @@ const main = async () => {
     const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
   
     // caminho do arquivo dentro do repo
-    const path = "badges/build.svg";
+    const path = `badges/${repositoryCurrentName}/${text1}.svg`;
   
     // converte o SVG para base64
     const contentEncoded = Buffer.from(svg).toString("base64");
