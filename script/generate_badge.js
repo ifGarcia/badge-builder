@@ -6,8 +6,8 @@ const { makeBadge, ValidationError } = require('badge-maker');
 
 // Função principal
 const main = async () => {
-  const text1 = process.env.text-1;
-  const text2 = process.env.text-2;
+  const text1 = String(process.env.text-1);
+  const text2 = String(process.env.text-2);
   
   //const token = process.env.token;
 
@@ -26,8 +26,8 @@ const main = async () => {
   async function commitBadge() {
     // gera o badge
     const format = {
-      label: String(text1),
-      message: String(text2),
+      label: text1,
+      message: text2,
       color: "brightgreen",
     };
     const svg = makeBadge(format);
@@ -44,7 +44,16 @@ const main = async () => {
 
     // converte o SVG para base64
     const contentEncoded = Buffer.from(svg).toString("base64");
-  
+
+    // tenta buscar o arquivo para ver se já existe
+    let sha;
+    try {
+      const { data } = await octokit.repos.getContent({ owner, repo, path, ref: "teste" });
+      sha = data.sha;
+    } catch (err) {
+      // se não existe, segue sem sha
+    }
+    
     // cria ou atualiza o arquivo na branch "teste"
     await octokit.repos.createOrUpdateFileContents({
       owner,
