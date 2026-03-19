@@ -1,8 +1,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const simpleGit = require('simple-git');
-//const { createCanvas } = require('canvas');
-const { Octokit } = await import('@octokit/rest');
+//const { createCanvas } = require('canvas');;
 const { makeBadge, ValidationError } = require('badge-maker');
 
 // Função principal
@@ -25,14 +24,14 @@ const main = async () => {
   const repositoryCurrentName  = process.env.GITHUB_REPOSITORY.split('/')[1];
   const repositoryCurrentOwner = process.env.GITHUB_REPOSITORY.split('/')[0];
 
-  const format = {
-    label: 'build',
-    message: 'passed',
-    color: 'brightgreen',
-  }
+  // const format = {
+  //   label: 'build',
+  //   message: 'passed',
+  //   color: 'brightgreen',
+  // }
   
-  const svg = makeBadge(format)
-  console.log(svg) // <svg...
+  // const svg = makeBadge(format)
+  // console.log(svg) // <svg...
   
   // try {
   //   makeBadge({})
@@ -40,43 +39,44 @@ const main = async () => {
   //   console.log(e) // ValidationError: Field `message` is required
   // }
 
-async function commitBadge() {
-  // gera o badge
-  const format = {
-    label: "build",
-    message: "passed",
-    color: "brightgreen",
-  };
-  const svg = makeBadge(format);
-
-  // inicializa o Octokit com o token do workflow
-  const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-
-  // pega owner e repo do ambiente
-  const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
-
-  // caminho do arquivo dentro do repo
-  const path = "badges/build.svg";
-
-  // converte o SVG para base64
-  const contentEncoded = Buffer.from(svg).toString("base64");
-
-  // cria ou atualiza o arquivo na branch "teste"
-  await octokit.repos.createOrUpdateFileContents({
-    owner,
-    repo,
-    path,
-    message: "Add build badge",
-    content: contentEncoded,
-    branch: "teste",
+  async function commitBadge() {
+    // gera o badge
+    const format = {
+      label: "build",
+      message: "passed",
+      color: "brightgreen",
+    };
+    const svg = makeBadge(format);
+  
+    // inicializa o Octokit com o token do workflow
+    const { Octokit } = await import('@octokit/rest');
+    const octokit = new Octokit({ auth: process.env.token });
+  
+    // pega owner e repo do ambiente
+    const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
+  
+    // caminho do arquivo dentro do repo
+    const path = "badges/build.svg";
+  
+    // converte o SVG para base64
+    const contentEncoded = Buffer.from(svg).toString("base64");
+  
+    // cria ou atualiza o arquivo na branch "teste"
+    await octokit.repos.createOrUpdateFileContents({
+      owner,
+      repo,
+      path,
+      message: "Add build badge",
+      content: contentEncoded,
+      branch: "teste",
+    });
+  
+    console.log("Badge commitado com sucesso na branch teste!");
+  }
+  
+  commitBadge().catch(err => {
+    console.error("Erro ao commitar badge:", err);
   });
-
-  console.log("Badge commitado com sucesso na branch teste!");
-}
-
-commitBadge().catch(err => {
-  console.error("Erro ao commitar badge:", err);
-});
 
   
   // Verificar se a versão já está presente no badge remoto
