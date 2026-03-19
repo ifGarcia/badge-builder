@@ -2,6 +2,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const simpleGit = require('simple-git');
 //const { createCanvas } = require('canvas');
+const { Octokit } = await import('@octokit/rest');
 const { makeBadge, ValidationError } = require('badge-maker');
 
 // Função principal
@@ -33,11 +34,11 @@ const main = async () => {
   const svg = makeBadge(format)
   console.log(svg) // <svg...
   
-  try {
-    makeBadge({})
-  } catch (e) {
-    console.log(e) // ValidationError: Field `message` is required
-  }
+  // try {
+  //   makeBadge({})
+  // } catch (e) {
+  //   console.log(e) // ValidationError: Field `message` is required
+  // }
 
 async function commitBadge() {
   // gera o badge
