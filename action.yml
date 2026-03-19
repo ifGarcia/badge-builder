@@ -26,7 +26,7 @@ runs:
     - name: Install dependencies
       run: |
         cd ${{ github.action_path }}/script/
-        npm install simple-git @octokit/rest canvas
+        npm install simple-git @octokit/rest badge-maker 
       shell: bash
 
     - name: Generate svg badge
