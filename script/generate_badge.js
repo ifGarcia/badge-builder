@@ -28,8 +28,8 @@ const main = async () => {
   async function commitBadge() {
     // gera o badge
     const format = {
-      label: text1,
-      message: text2,
+      label: String(text1),
+      message: String(text2),
       color: "brightgreen",
     };
     const svg = makeBadge(format);
