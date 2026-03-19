@@ -7,6 +7,8 @@ jobs:
   teste-badge:
     name: 'Teste Create Badges'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout - ${{ github.ref }}
         uses: actions/checkout@v4.2.2
