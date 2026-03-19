@@ -14,7 +14,8 @@ inputs:
   token:
     description: 'Token'
     required: false
-
+  permissions:
+    contents: write
 runs:
   using: 'composite'
   steps:
