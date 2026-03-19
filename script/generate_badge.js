@@ -14,16 +14,14 @@ const main = async () => {
   // Colocar as opções de repo com owner atual quando passa só o nome do repo
   // owner com repo padrão quando passa so o nome do owner
   // repo e owner padrão quando não passa nada
-  const repositoryRegistryName  = process.env.repo.split('/')[1];
-  const repositoryRegistryOwner = process.env.repo.split('/')[0];
+  const [repositoryRegistryOwner, repositoryRegistryName] = process.env.repo.split('/');
+
   // Logica do tipo de commit ou merge?
   // Não sei ainda se vai tudo pra master, ou vai ter branches por ternologia, sei lá.
   const branchRepositoryRegistry = process.env.branch;
 
   // Repositori Current
-  const repositoryCurrentName  = process.env.GITHUB_REPOSITORY.split('/')[1];
-  const repositoryCurrentOwner = process.env.GITHUB_REPOSITORY.split('/')[0];
-
+  const [repositoryCurrentOwner, repositoryCurrentName] = process.env.GITHUB_REPOSITORY.split('/');
 
   async function commitBadge() {
     // gera o badge
@@ -42,8 +40,8 @@ const main = async () => {
     const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
   
     // caminho do arquivo dentro do repo
-    const path = `badges/${repositoryCurrentName}/${text1}.svg`;
-  
+    const path = `badges/${String(repositoryCurrentName)}/${String(text1)}.svg`;
+
     // converte o SVG para base64
     const contentEncoded = Buffer.from(svg).toString("base64");
   
