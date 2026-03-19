@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const simpleGit = require('simple-git');
-const { createCanvas } = require('canvas');
+//const { createCanvas } = require('canvas');
 const { makeBadge, ValidationError } = require('badge-maker');
 
 // Função principal
