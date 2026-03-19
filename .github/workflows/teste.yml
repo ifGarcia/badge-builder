@@ -5,7 +5,7 @@ on:
 
 jobs:
   teste-badge:
-    name: 'Teste Create de Badges'
+    name: 'Teste Create Badges'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout - ${{ github.ref }}
