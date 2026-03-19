@@ -7,15 +7,15 @@ inputs:
   # Opção de commit por branch. Cria branch baseado em uma regra.
   # Branch por projeto, tecnologia etc...
   #branch:
-  text-1:
+  text1:
     required: false
-  text-2:
+  text2:
     required: false
   token:
     description: 'Token'
     required: false
-  permissions:
-    contents: write
+  # permissions:
+  #   contents: write
 runs:
   using: 'composite'
   steps:
@@ -33,8 +33,8 @@ runs:
     - name: Generate svg badge
       env:
         repo: ${{ inputs.repo }}
-        text-1: ${{ inputs.text-1 }}
-        text-2: ${{ inputs.text-2 }}
+        text1: ${{ inputs.text1 }}
+        text2: ${{ inputs.text2 }}
         token: ${{ inputs.token }}
       run: node ${{ github.action_path }}/script/generate_badge.js
       shell: bash
