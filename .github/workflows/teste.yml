@@ -19,14 +19,14 @@ jobs:
         with:
           text-1: env-com-token
           text-2: ${{ github.run_number }}
-          token: ${{ secrets.SECRET_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Badge - Com repetido
         uses: ./
         with:
           text-1: env-com-token-rep
           text-2: 01
-          token: ${{ secrets.SECRET_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: Create Badge - Sem
       #   uses: ./
